@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import axios from "axios";
-import SearchBar from "./components/SearchBar.jsx";
-import WeatherCard from "./components/WeatherCard.jsx";
+import SearchBar from "./components/SearchBar.js";
+import WeatherCard from "./components/WeatherCard.js";
 import './App.css'
 
 function App() {
-  const [weather, setWeather] = useState(null);
+  const [weather, setWeather] = useState<{ temp: number } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [isDark, setIsDark] = useState(false);
@@ -22,7 +22,8 @@ function App() {
   // }, [isDark]);
 
   // جلب الطقس بالإحداثيات
-  const fetchWeatherByCoords = async (lat, lon) => {
+  
+  const fetchWeatherByCoords = async (lat: number, lon: number) => {
     try {
       setLoading(true);
       setError("");
@@ -45,7 +46,7 @@ function App() {
   };
 
   // جلب الطقس باسم المدينة
-  const fetchWeatherByCity = async (city) => {
+  const fetchWeatherByCity = async (city: string) => {
     try {
       setLoading(true);
       setError("");

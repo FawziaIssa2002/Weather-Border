@@ -1,0 +1,165 @@
+/* القواعد العامة */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Cairo", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("./assets/backg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  transition: background-color 0.4s ease;
+}
+
+/* وضعيات اللون */
+/* .light-mode-body {
+  background-color: rgba(245, 247, 250, 0.4);
+}
+
+.dark-mode-body {
+  background-color: rgba(30, 30, 47, 0.4);
+} */
+/* الوضع النهاري */
+/* .light-mode {
+  color: #111;
+}
+
+/* الوضع الليلي 
+.dark-mode {
+  color: #f1f1f1;
+} */
+
+
+/* الحاوية الأساسية */
+.app-container {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.15); /* ✅ الشفافية المنخفضة */
+  backdrop-filter: blur(15px); /* ✅ يعطي تأثير الضبابية الأنيق */
+  border-radius: 18px;
+  padding: 40px 25px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+}
+
+.dark-mode .app-container {
+  background: rgba(30, 30, 47, 0.3); /* شفافية منخفضة أكثر في الوضع الداكن */
+  color: #f1f1f1;
+}
+
+/* الهيدر والزر */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.app-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* زر الوضع */
+.theme-toggle {
+  background: #4facfe;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: #003d4e;
+}
+
+/* البحث */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-form {
+  display: flex;
+  gap: 10px;
+}
+
+.search-input {
+  background-color: rgba(255, 255, 255, 0.7);
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #4facfe;
+  box-shadow: 0 0 8px rgba(79,172,254,0.5);
+}
+
+.search-button {
+  background: #4facfe;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-button:hover {
+  background: #00c6ff;
+}
+
+/* الطقس */
+.weather-content {
+  margin-top: 20px;
+}
+.search-icon {
+  width: 22px;
+  height: 22px;
+  filter: invert(1);
+}
+
+.loading-text {
+  color: #4facfe;
+  font-size: 1.2rem;
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* الاستجابة للشاشات الصغيرة */
+@media (max-width: 600px) {
+  .app-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .app-title {
+    font-size: 1.5rem;
+  }
+
+  .theme-toggle {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+}

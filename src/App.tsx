@@ -84,7 +84,7 @@ function App() {
   };
 
   return (
-    <div className={`app-container ${isDark ? "dark-mode" : "light-mode"}`}>
+    <div className={'app-container '}>
       <div className="header">
         {/* <button
           onClick={() => setIsDark(!isDark)}
@@ -98,13 +98,12 @@ function App() {
       <SearchBar
         onSearch={fetchWeatherByCity}
         onLocation={fetchWeatherByLocation}
-        isDark={isDark}
       />
 
       <div className="weather-content">
         {loading && <p className="loading-text">جارٍ جلب البيانات...</p>}
         {error && <p className="error-text">{error}</p>}
-        {weather && <WeatherCard data={weather} isDark={isDark} />}
+        {weather && <WeatherCard data={weather} />}
       </div>
     </div>
   );

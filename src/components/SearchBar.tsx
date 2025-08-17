@@ -43,7 +43,7 @@
 import { useState } from "react";
 import shearch from "../assets/search.svg";
 
-function SearchBar({ onSearch, onLocation, isDark }) {
+function SearchBar({ onSearch, onLocation,  }) {
   const [city, setCity] = useState("");
 
   const handleSubmit = (e) => {
@@ -55,7 +55,7 @@ function SearchBar({ onSearch, onLocation, isDark }) {
   };
 
   return (
-    <div className={`search-container ${isDark ? "dark-mode" : "light-mode"}`}>
+    <div className={'search-container'}>
       <form onSubmit={handleSubmit} className="search-form">
         <input
           type="text"

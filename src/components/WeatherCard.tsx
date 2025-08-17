@@ -13,8 +13,8 @@ const weatherIcons = {
   95: { text: "عاصفة رعدية"},
 };
 
-function WeatherCard({ data, isDark }) {
-  const [colors, setColors] = useState("primary:#121331,secondary:#08a88a");
+function WeatherCard({ data }) {
+  // const [colors, setColors] = useState("primary:#121331,secondary:#08a88a");
   const info = weatherIcons[data.code] || { text: "غير معروف", icon: "https://cdn.lordicon.com/slduhdil.json" };
 
   // تغيير اللون حسب درجة الحرارة
@@ -32,10 +32,10 @@ function WeatherCard({ data, isDark }) {
     }
 
     // تغيير الألوان حسب الوضع الليلي
-    if (isDark) {
-      primary = "#fcd34d";
-      secondary = "#f97316";
-    }
+    // if (isDark) {
+    //   primary = "#fcd34d";
+    //   secondary = "#f97316";
+    // }
 
     setColors(`primary:${primary},secondary:${secondary}`);
   }, [data.temp, isDark]);

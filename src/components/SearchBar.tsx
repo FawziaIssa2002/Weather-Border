@@ -42,11 +42,15 @@
 // export default SearchBar;
 import { useState } from "react";
 import shearch from "../assets/search.svg";
+interface SearchBarProps {
+  onSearch: (city: string) => void;
+  onLocation: () => void;
+}
 
-function SearchBar({ onSearch, onLocation,  }) {
+function SearchBar({ onSearch, onLocation }: SearchBarProps) {
   const [city, setCity] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (city.trim()) {
       onSearch(city);

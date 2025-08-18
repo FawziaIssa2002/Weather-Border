@@ -5,23 +5,20 @@ import WeatherCard from "./components/WeatherCard.js";
 import './App.css'
 
 function App() {
-  const [weather, setWeather] = useState<{ temp: number } | null>(null);
+  interface Weather {
+  temp: number;
+  wind: number;
+  code: number;
+  time: string;
+  lat: number;
+  lon: number;
+}
+
+const [weather, setWeather] = useState<Weather | null>(null);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [isDark, setIsDark] = useState(false);
 
-  // تغيير كلاس الـ body حسب الوضع
-  // useEffect(() => {
-  //   if (isDark) {
-  //     document.body.classList.add("dark-mode-body");
-  //     document.body.classList.remove("light-mode-body");
-  //   } else {
-  //     document.body.classList.add("light-mode-body");
-  //     document.body.classList.remove("dark-mode-body");
-  //   }
-  // }, [isDark]);
-
-  // جلب الطقس بالإحداثيات
   
   const fetchWeatherByCoords = async (lat: number, lon: number) => {
     try {
@@ -30,16 +27,27 @@ function App() {
       const response = await axios.get(
         `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
       );
+      // setWeather({
+      //   temp: response.data.current_weather.temperature,
+      //   wind: response.data.current_weather.windspeed,
+      //   code: response.data.current_weather.weathercode,
+      //   time: response.data.current_weather.time,
+      //   text: weatherIcons[code]?.text || "غير معروف ",
+      //   lat,
+      //   lon
+      // });
       setWeather({
-        temp: response.data.current_weather.temperature,
-        wind: response.data.current_weather.windspeed,
-        code: response.data.current_weather.weathercode,
-        time: response.data.current_weather.time,
-        lat,
-        lon
-      });
+  temp: response.data.current_weather.temperature,
+  wind: response.data.current_weather.windspeed,
+  code: response.data.current_weather.weathercode,
+  time: response.data.current_weather.time,
+  lat,
+  lon
+});
+
     } catch (err) {
       setError("حدث خطأ أثناء جلب بيانات الطقس");
+      console.log(err);
     } finally {
       setLoading(false);
     }

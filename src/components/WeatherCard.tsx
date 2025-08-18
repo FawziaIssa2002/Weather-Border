@@ -1,66 +1,58 @@
-import { useEffect, useState } from "react";
 import cloud from '../assets/cloud.svg';
-const weatherIcons = {
-  0: { text: "صحو"},
-  1: { text: "غائم جزئيًا"  },
+import sun from '../assets/Sun.png';
+import rain from '../assets/Rain.png';
+import windy from '../assets/windy.png';
+// const weatherIcons: Record< WeatherInfo> = {
+//   0: { text: "صحو" , icon: sun },
+//   1: { text: "غائم جزئيًا" , icon: cloud  },
+//   2: { text: "غائم", icon: cloud },
+//   3: { text: "مطر خفيف" , icon: rain  },
+//   45: { text: "ضباب" },
+//   48: { text: "ضباب كثيف" },
+//   51: { text: "رذاذ خفيف" },
+//   61: { text: "مطر" , icon: rain },
+//   71: { text: "ثلوج" },
+//   95: { text: "عاصفة رعدية" , icon: windy },
+// };
+const weatherIcons: Record<number, { text: string; icon?: string }> = {
+  0: { text: "صحو", icon: sun },
+  1: { text: "غائم جزئيًا", icon: cloud },
   2: { text: "غائم", icon: cloud },
-  3: { text: "مطر خفيف" },
+  3: { text: "مطر خفيف", icon: rain },
   45: { text: "ضباب" },
   48: { text: "ضباب كثيف" },
   51: { text: "رذاذ خفيف" },
-  61: { text: "مطر"},
+  61: { text: "مطر", icon: rain },
   71: { text: "ثلوج" },
-  95: { text: "عاصفة رعدية"},
+  95: { text: "عاصفة رعدية", icon: windy },
 };
 
-function WeatherCard({ data }) {
-  // const [colors, setColors] = useState("primary:#121331,secondary:#08a88a");
-  const info = weatherIcons[data.code] || { text: "غير معروف", icon: "https://cdn.lordicon.com/slduhdil.json" };
+interface Weather {
+  temp: number;
+  wind: number;
+  code: number;
+  time: string;
+  lat: number;
+  lon: number;
+}
 
-  // تغيير اللون حسب درجة الحرارة
-  useEffect(() => {
-    const temp = data.temp;
-    let primary = "#121331";
-    let secondary = "#08a88a";
+interface WeatherCardProps {
+  data: Weather;
+}
 
-    if (temp >= 30) {
-      primary = "#f59e0b"; // أصفر / حار
-      secondary = "#fbbf24";
-    } else if (temp <= 10) {
-      primary = "#3b82f6"; // أزرق / بارد
-      secondary = "#60a5fa";
-    }
+function WeatherCard({ data }: WeatherCardProps) {
 
-    // تغيير الألوان حسب الوضع الليلي
-    // if (isDark) {
-    //   primary = "#fcd34d";
-    //   secondary = "#f97316";
-    // }
-
-    setColors(`primary:${primary},secondary:${secondary}`);
-  }, [data.temp, isDark]);
+const info = weatherIcons[data.code as keyof typeof weatherIcons] || { text: "غير معروف", icon: "https://cdn.lordicon.com/slduhdil.json" };
 
   return (
     <div className=''>
       <h2 className="">
-        الإحداثيات: {parseFloat(data.lat).toFixed(2)}, {parseFloat(data.lon).toFixed(2)}
+    الإحداثيات: {data.lat.toFixed(2)}, {data.lon.toFixed(2)}
+        {/* الإحداثيات: {parseFloat(data.lat).toFixed(2)}, {parseFloat(data.lon).toFixed(2)} */}
       </h2>
       <div className="">
-        {/* <lord-icon
-          src={info.icon}
-          trigger="loop"
-          colors={colors}
-          style={{ width: "100px", height: "100px" }}
-        ></lord-icon> */}
-          {/* {Object.values(weatherIcons).map((iconItem, index) => (
-    <img
-      key={index}
-      src={iconItem.icon}
-      trigger="loop"
-      colors="primary:#121331,secondary:#08a88a"
-      style={{ width: "100px", height: "100px" }}
-    />
-  ))} */}
+        
+
       {info.icon != null && (
         <img
           src={info.icon}

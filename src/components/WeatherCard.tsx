@@ -23,7 +23,7 @@ interface Weather {
   time: string;
   lat: number;
   lon: number;
-   city: string;
+  city: string;
 }
 
 interface WeatherCardProps {

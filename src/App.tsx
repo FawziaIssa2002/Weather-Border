@@ -12,6 +12,7 @@ function App() {
   time: string;
   lat: number;
   lon: number;
+  city: string;
 }
 
 const [weather, setWeather] = useState<Weather | null>(null);

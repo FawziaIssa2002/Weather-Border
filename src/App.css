@@ -187,12 +187,12 @@ body {
 }
 @media (max-width: 400px) {
   .search-form {
-    flex-direction: column; /* ✅ يجعلها عمودية */
+    /* flex-direction: column; */
     gap: 8px;
   }
 
   .search-button {
-    width: 100%; /* الزر يأخذ عرض الحاوية */
+    width: 25%; /* الزر يأخذ عرض الحاوية */
   }
 }
 

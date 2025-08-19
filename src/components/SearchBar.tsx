@@ -1,47 +1,6 @@
-// import { useState } from "react";
-// import shearch from "../assets/search.svg"
-// function SearchBar({ onSearch, onLocation , isDark}) {
-//   const [city, setCity] = useState("");
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (city.trim()) {
-//       onSearch(city);
-//       setCity("");
-//     }
-//   };
-
-//   return (
-//     <div className="SearchB">
-//       <form onSubmit={handleSubmit} className="">
-//         <input
-//           type="text"
-//           value={city}
-//           onChange={(e) => setCity(e.target.value)}
-//           placeholder="أدخل اسم المدينة"
-//           className="p-2 rounded text-black"
-//         />
-//         <button type="submit" className="imageSearch">
-//           <img 
-//             src={shearch} 
-//             alt="بحث" 
-//             className={isDark ? "dark-icon" : "light-icon"} 
-//           />
-//         </button>
-//       </form>
-//       <button
-//         onClick={onLocation}
-//         className="bg-green-600 px-4 py-2 rounded hover:bg-green-700"
-//       >
-//         استخدام موقعي الحالي
-//       </button>
-//     </div>
-//   );
-// }
-
-// export default SearchBar;
 import { useState } from "react";
 import shearch from "../assets/search.svg";
+
 interface SearchBarProps {
   onSearch: (city: string) => void;
   onLocation: () => void;
@@ -49,17 +8,26 @@ interface SearchBarProps {
 
 function SearchBar({ onSearch, onLocation }: SearchBarProps) {
   const [city, setCity] = useState("");
+  const [history, setHistory] = useState<string[]>([]);
+
+  const handleCitySubmit = (cityName: string) => {
+    onSearch(cityName);
+    setHistory((prev) => {
+      const updated = [cityName, ...prev.filter((c) => c !== cityName)];
+      return updated.slice(0, 5);
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (city.trim()) {
-      onSearch(city);
+      handleCitySubmit(city); // هنا نستدعي نفس الدالة
       setCity("");
     }
   };
 
   return (
-    <div className={'search-container'}>
+    <div className="search-container">
       <form onSubmit={handleSubmit} className="search-form">
         <input
           type="text"
@@ -69,19 +37,31 @@ function SearchBar({ onSearch, onLocation }: SearchBarProps) {
           className="search-input"
         />
         <button type="submit" className="search-button">
-          <img 
-            src={shearch} 
-            alt="بحث" 
-            className="search-icon" 
-          />
+          <img src={shearch} alt="بحث" className="search-icon" />
         </button>
       </form>
-      <button
-        onClick={onLocation}
-        className="location-button"
-      >
+      <button onClick={onLocation} className="location-button">
         استخدام موقعي الحالي
       </button>
+
+      {/* قائمة آخر المدن */}
+      {history.length > 0 && (
+        <div className="search-history">
+          <h4> : آخر عمليات البحث </h4>
+          <ul>
+            {history.map((item, index) => (
+              <li key={index}>
+                <button
+                  className="history-item"
+                  onClick={() => handleCitySubmit(item)}
+                >
+                  {item}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

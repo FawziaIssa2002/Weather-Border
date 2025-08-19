@@ -2,18 +2,7 @@ import cloud from '../assets/cloud.svg';
 import sun from '../assets/Sun.png';
 import rain from '../assets/Rain.png';
 import windy from '../assets/windy.png';
-// const weatherIcons: Record< WeatherInfo> = {
-//   0: { text: "صحو" , icon: sun },
-//   1: { text: "غائم جزئيًا" , icon: cloud  },
-//   2: { text: "غائم", icon: cloud },
-//   3: { text: "مطر خفيف" , icon: rain  },
-//   45: { text: "ضباب" },
-//   48: { text: "ضباب كثيف" },
-//   51: { text: "رذاذ خفيف" },
-//   61: { text: "مطر" , icon: rain },
-//   71: { text: "ثلوج" },
-//   95: { text: "عاصفة رعدية" , icon: windy },
-// };
+
 const weatherIcons: Record<number, { text: string; icon?: string }> = {
   0: { text: "صحو", icon: sun },
   1: { text: "غائم جزئيًا", icon: cloud },
@@ -34,6 +23,7 @@ interface Weather {
   time: string;
   lat: number;
   lon: number;
+   city: string;
 }
 
 interface WeatherCardProps {
@@ -41,14 +31,16 @@ interface WeatherCardProps {
 }
 
 function WeatherCard({ data }: WeatherCardProps) {
-
 const info = weatherIcons[data.code as keyof typeof weatherIcons] || { text: "غير معروف", icon: "https://cdn.lordicon.com/slduhdil.json" };
 
   return (
     <div className=''>
+      <h2> المدينة: {data.city}</h2>
+
       <h2 className="">
-    الإحداثيات: {data.lat.toFixed(2)}, {data.lon.toFixed(2)}
-        {/* الإحداثيات: {parseFloat(data.lat).toFixed(2)}, {parseFloat(data.lon).toFixed(2)} */}
+    الإحداثيات: 
+    {data.lat ? Number(data.lat).toFixed(2) : 'N/A'},
+    {data.lon ? Number(data.lon).toFixed(2) : 'N/A'}
       </h2>
       <div className="">
         

@@ -20,30 +20,22 @@ const [weather, setWeather] = useState<Weather | null>(null);
   const [error, setError] = useState("");
 
   
-  const fetchWeatherByCoords = async (lat: number, lon: number) => {
+  const fetchWeatherByCoords = async (lat: number, lon: number, city: string = "موقعي الحالي") => {
     try {
       setLoading(true);
       setError("");
       const response = await axios.get(
         `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
       );
-      // setWeather({
-      //   temp: response.data.current_weather.temperature,
-      //   wind: response.data.current_weather.windspeed,
-      //   code: response.data.current_weather.weathercode,
-      //   time: response.data.current_weather.time,
-      //   text: weatherIcons[code]?.text || "غير معروف ",
-      //   lat,
-      //   lon
-      // });
       setWeather({
-  temp: response.data.current_weather.temperature,
-  wind: response.data.current_weather.windspeed,
-  code: response.data.current_weather.weathercode,
-  time: response.data.current_weather.time,
-  lat,
-  lon
-});
+        temp: response.data.current_weather.temperature,
+        wind: response.data.current_weather.windspeed,
+        code: response.data.current_weather.weathercode,
+        time: response.data.current_weather.time,
+        lat,
+        lon,
+        city
+      });
 
     } catch (err) {
       setError("حدث خطأ أثناء جلب بيانات الطقس");
@@ -66,7 +58,7 @@ const [weather, setWeather] = useState<Weather | null>(null);
         return;
       }
       const { lat, lon } = geoResponse.data[0];
-      await fetchWeatherByCoords(lat, lon);
+      await fetchWeatherByCoords(Number(lat), Number(lon), city);
     } catch (err) {
       setError("تعذر جلب الإحداثيات");
     } finally {
